@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: read-task1
+spec:
+  steps:
+    - name: cat-readme1
+      image: ubuntu
+      script: |
+        apt-get update && apt-get install -y wget unzip
+        wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.4.0.2170-linux.zip
+        unzip sonar-scanner-cli-4.4.0.2170-linux.zip
+        cd sonar-scanner-4.4.0.2170-linux; export PATH="$PWD/bin:$PATH"
+        sonar-scanner

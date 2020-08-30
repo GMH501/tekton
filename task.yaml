@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: read-task
+spec:
+  resources:
+    inputs:
+      - name: github-repo
+        type: git
+        targetPath: test/
+  steps:
+    - name: cat-readme
+      image: ubuntu
+      command:
+        - cat
+      args:
+        - "/workspace/test/README.md"
+    - name: ls-project
+      image: ubuntu
+      script: |
+        echo $pwd
+        ls /workspace/test/
